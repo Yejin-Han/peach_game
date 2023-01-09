@@ -30,7 +30,6 @@
 				display: flex; flex-flow: row wrap;
 			}
 			.img_wrap{
-				padding: 10px; box-sizing: border-box;
 				background: url('img/peach0.png') no-repeat center center;
 				background-size: contain;
 				position: relative;
@@ -92,9 +91,57 @@
 			spans.forEach(el=>{
 				el.innerHTML=Math.floor(Math.random()*9+1);
 			});
+
 			const canvas=document.querySelector('canvas');
 			const ctx=canvas.getContext('2d');
-			
+			ctx.lineWidth=1;
+			ctx.strokeStyle='#2F48D1';
+			let startX; let startY;
+			let x; let y;
+			let endX; let endY;
+			let draggable=false;
+			function downFunc(e){
+				startX=e.offsetX;
+				startY=e.offsetY;
+				x=e.offsetX;
+				y=e.offsetY;
+				draggable=true;
+			}
+			function moveFunc(e){
+				if(!draggable){
+					return;
+				}
+				let nowX=e.offsetX;
+				let nowY=e.offsetY;
+				canvasDraw(nowX, nowY);
+				x=nowX; y=nowY;
+			}
+			function upFunc(e){
+				endX=e.offsetX;
+				endY=e.offsetY;
+				draggable=false;
+				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+				console.log(startX,endY);
+			}
+			function leaveFunc(){
+				draggable=false;
+				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			}
+			function canvasDraw(currX,currY){
+				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+				ctx.strokeRect(startX, startY, currX-startX, currY-startY);
+				
+				imgWraps.forEach(el=>{
+					if((el.offsetLeft>startX && (el.offsetLeft+el.clientWidth)<endX) && ((el.offsetTop+el.clientHeight)<endY && el.offsetTop>startY)){
+						el.querySelector('span').style.color='red'; 
+					} /* 좌표 잡기 증맬 어렵다~! */
+					/* console.log(el.offsetLeft, el.offsetTop+el.clientHeight); */
+				});
+			}
+			canvas.addEventListener('mousedown', downFunc);
+			canvas.addEventListener('mousemove', moveFunc);
+			canvas.addEventListener('mouseup', upFunc);
+			canvas.addEventListener('mouseleave', leaveFunc);
 		</script>
 	</body>
 </html>
