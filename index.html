@@ -17,131 +17,20 @@
 				background: #fddde6;
 				position: relative;
 			}
-			.overlay{
+			.wrapper{
 				width: 800px; height: 600px;
 				padding: 30px; box-sizing: border-box;
 				position: absolute; left: 50%; top: 50%; z-index: 1;
 				transform: translate(-50%, -50%);
 				background: #fff;
-				display: flex; justify-content: space-between;
-			}
-			.peaches{
-				width: 95%; height: 100%;
-				display: flex; flex-flow: row wrap;
-			}
-			.img_wrap{
-				background: url('img/peach0.png') no-repeat center center;
-				background-size: contain;
-				position: relative;
-			}
-			.img_wrap>span{
-				position: absolute; left: 50%; top: 50%;
-				transform: translate(-30%, -50%);
-				font-weight: bold; color: #fff;
-			}
-			.result{
-				display: flex; flex-flow: column wrap; justify-content: center; align-items: center;
-				margin-right: -10px;
-			}
-			.result>.timer{
-				width: 16px; height: 80%;
-				border: 1px solid #fddde6;
-				margin-top: 20px;
-				position: relative;
-			}
-			.result>.timer>.curr{
-				display: block;
-				width: 100%; height: 80%;
-				background: #fddde6;
-				position: absolute; left: 0; bottom: 0;
-			}
-			canvas{
-				position: absolute; left: 50%; top: 50%; z-index: 10;
-				transform: translate(-50%, -50%);
 			}
 		</style>
 	</head>
 	<body>
-		<div class='bg'>
-			<div class="overlay">
-				<div class="peaches"></div>
-				<div class="result">
-					<span class="score">0</span>
-					<div class="timer"><span class="curr"></span></div>
-				</div>
-			</div>
-			<canvas width='800' height='600'></canvas>
-		</div>
-		<script>
-			const peaches=document.querySelector('.peaches');
-			const imgWrap=document.createElement('div');
-			imgWrap.setAttribute('class','img_wrap');
-			const span=document.createElement('span');
-			imgWrap.append(span);
-			let imgWraps=new Array();
-			for(let i=0; i<170; i++){
-				imgWraps.push(imgWrap.cloneNode(true));
-			}
-			imgWraps.forEach(el=>{
-				peaches.append(el);
-				el.style.width=`${Math.floor(peaches.offsetWidth/17)}px`;
-				el.style.height=`${Math.floor(peaches.offsetHeight/10)}px`;
-			});
-			const spans=document.querySelectorAll('.img_wrap>span');
-			spans.forEach(el=>{
-				el.innerHTML=Math.floor(Math.random()*9+1);
-			});
+		<div class="bg">
+			<div class="wrapper">
 
-			const canvas=document.querySelector('canvas');
-			const ctx=canvas.getContext('2d');
-			ctx.lineWidth=1;
-			ctx.strokeStyle='#2F48D1';
-			let startX; let startY;
-			let x; let y;
-			let endX; let endY;
-			let draggable=false;
-			function downFunc(e){
-				startX=e.offsetX;
-				startY=e.offsetY;
-				x=e.offsetX;
-				y=e.offsetY;
-				draggable=true;
-			}
-			function moveFunc(e){
-				if(!draggable){
-					return;
-				}
-				let nowX=e.offsetX;
-				let nowY=e.offsetY;
-				canvasDraw(nowX, nowY);
-				x=nowX; y=nowY;
-			}
-			function upFunc(e){
-				endX=e.offsetX;
-				endY=e.offsetY;
-				draggable=false;
-				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-				console.log(startX,endY);
-			}
-			function leaveFunc(){
-				draggable=false;
-				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-			}
-			function canvasDraw(currX,currY){
-				ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-				ctx.strokeRect(startX, startY, currX-startX, currY-startY);
-				
-				imgWraps.forEach(el=>{
-					if((el.offsetLeft>startX && (el.offsetLeft+el.clientWidth)<endX) && ((el.offsetTop+el.clientHeight)<endY && el.offsetTop>startY)){
-						el.querySelector('span').style.color='red'; 
-					} /* 좌표 잡기 증맬 어렵다~! */
-					/* console.log(el.offsetLeft, el.offsetTop+el.clientHeight); */
-				});
-			}
-			canvas.addEventListener('mousedown', downFunc);
-			canvas.addEventListener('mousemove', moveFunc);
-			canvas.addEventListener('mouseup', upFunc);
-			canvas.addEventListener('mouseleave', leaveFunc);
-		</script>
+			</div>
+		</div>
 	</body>
 </html>
