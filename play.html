@@ -25,6 +25,15 @@
 				background: #fff;
 				display: flex; justify-content: space-between;
 			}
+			.reset{
+				display: block;
+				width: 80px; height: 25px;
+				position: absolute; right: 100px; bottom: 10px;
+				border: 1px solid #80d4ff;
+				text-align: center; line-height: 25px;
+				font-size: 14px; color: #80d4ff;
+				cursor: pointer;
+			}
 			.peaches{
 				width: 95%; height: 100%;
 				display: flex; flex-flow: row wrap;
@@ -72,6 +81,7 @@
 					<div class="timer"><span class="curr"></span></div>
 				</div>
 			</div>
+			<span class="reset">RESET</span>
 			<canvas width='800' height='600'></canvas>
 		</div>
 		<script>
@@ -88,6 +98,7 @@
 			let selectedNum=new Array();
 			let score=document.querySelector('.score');
 			let scoreNum=0; let num=0;
+			const resetBtn=document.querySelector('.reset');
 			for(let i=0; i<170; i++){
 				imgWraps.push(imgWrap.cloneNode(true));
 			}
@@ -96,7 +107,7 @@
 				el.style.width=`${Math.floor(peaches.offsetWidth/17)}px`;
 				el.style.height=`${Math.floor(peaches.offsetHeight/10)}px`;
 			});
-			const spans=document.querySelectorAll('.img_wrap>span');
+			let spans=document.querySelectorAll('.img_wrap>span');
 			spans.forEach(el=>{
 				el.innerHTML=Math.floor(Math.random()*9+1);
 			});
@@ -196,10 +207,23 @@
 					});
 					scoreNum+=num;
 				}
-				
 				score.innerHTML=scoreNum;
 			}
 			
+			resetBtn.addEventListener('click',()=>{
+				imgWraps.forEach(el=>{
+					if(el.firstChild==null){
+						const p2=document.createElement('p');
+			      const span2=document.createElement('span');
+						el.append(p2);
+						el.append(span2);
+					}
+				});
+				spans=document.querySelectorAll('.img_wrap>span');
+				spans.forEach(el=>{
+					el.innerHTML=Math.floor(Math.random()*9+1);
+				});
+			});
 		</script>
 	</body>
 </html>
