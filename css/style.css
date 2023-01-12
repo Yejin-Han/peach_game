@@ -1,0 +1,116 @@
+@charset 'utf-8';
+
+@font-face {
+	font-family: Fruit Days;
+	src: url('../data/Fruit_Days.woff') format('woff');
+	font-style: normal;
+	font-weight: normal;
+}
+/* @import url('https://fonts.cdnfonts.com/css/fruit-days'); */
+html, body{ width: 100%; height: 100%; }
+body, div, p{ margin: 0; padding: 0; }
+body{
+	display: flex; justify-content: center; align-items: center;
+}
+.bg{
+	width: 900px; height: 700px;
+	border-radius: 100px;
+	background: url('../img/bg_frame.jpg');
+	position: relative;
+}
+.wrapper{
+	width: 800px; height: 600px;
+	padding: 30px; box-sizing: border-box;
+	position: absolute; left: 50%; top: 50%; z-index: 1;
+	transform: translate(-50%, -50%);
+	background: #fff;
+}
+.title_wrap{
+	position: absolute; left: 0; top: 50px; z-index: 10;
+}
+.bg_img_wrap{
+	width: 200px; height: auto;
+	position: absolute;
+}
+.bg_img_wrap>img{
+	width: 100%; height: auto;
+	position: absolute;
+}
+.wrap1{ left: 0; bottom: 0; }
+.wrap1>img{ bottom: 0; }
+.wrap2{ right: 0; top: 0; }
+.wrap2>img{
+	top: -20px;
+	transform-origin: right bottom;
+	transform: scaleX(-1) rotate(90deg);
+}
+.btn_wrap{
+	width: 100%;
+	position: absolute; left: 0; bottom: 15%;
+	display: flex; justify-content: center; gap: 100px;
+}
+.btn_wrap>div{ position: relative; }
+.btn_wrap>div>span{
+	width: 100%;
+	position: absolute; left: 2%; top: 50%;
+	transform: translateY(-40%);
+	text-align: center;
+	font-family: 'Fruit Days', sans-serif;
+	font-weight: bold; font-size: 26px;
+	color: #fff;
+	cursor: pointer;
+}
+.btn_wrap>.play_btn>span{ font-size: 38px; }
+.overlay{
+	width: 800px; height: 600px;
+	padding: 30px; box-sizing: border-box;
+	position: absolute; left: 50%; top: 50%; z-index: 1;
+	transform: translate(-50%, -50%);
+	background: url('../img/bg_play.gif');
+	display: flex; justify-content: space-between;
+}
+.reset{
+	display: block;
+	width: 80px; height: 25px;
+	position: absolute; right: 100px; bottom: 10px;
+	border: 1px solid #80d4ff;
+	text-align: center; line-height: 25px;
+	font-size: 14px; color: #80d4ff;
+	cursor: pointer;
+}
+.peaches{
+	width: 95%; height: 100%;
+	display: flex; flex-flow: row wrap;
+}
+.img_wrap{ position: relative; }
+.img_wrap>p{
+	width: 100%; height: 100%;
+	position: absolute; left: 0; top: 0; z-index: 1;
+	background: url('../img/peach0.png') no-repeat center center;
+	background-size: contain;
+}
+.img_wrap>span{
+	position: absolute; left: 50%; top: 50%; z-index: 10;
+	transform: translate(-30%, -50%);
+	font-weight: bold; color: #fff;
+}
+.result{
+	display: flex; flex-flow: column wrap; justify-content: center; align-items: center;
+	margin-right: -10px;
+}
+.result>.timer{
+	width: 16px; height: 80%;
+	border: 1px solid #fff;
+	margin-top: 20px;
+	position: relative;
+}
+.result>.timer>.curr{
+	display: block;
+	width: 100%; height: 80%;
+	background: #fddde6;
+	position: absolute; left: 0; bottom: 0;
+}
+canvas{
+	position: absolute; left: 50%; top: 50%; z-index: 10;
+	transform: translate(-50%, -50%);
+}

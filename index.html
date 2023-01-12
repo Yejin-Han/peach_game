@@ -5,58 +5,32 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Peach Game</title>
-		<style>
-			html, body{ width: 100%; height: 100%; }
-			body{
-				margin: 0;
-				display: flex; justify-content: center; align-items: center;
-			}
-			.bg{
-				width: 900px; height: 700px;
-				border-radius: 100px;
-				background: url('img/bg_frame.jpg');
-				position: relative;
-			}
-			.wrapper{
-				width: 800px; height: 600px;
-				padding: 30px; box-sizing: border-box;
-				position: absolute; left: 50%; top: 50%; z-index: 1;
-				transform: translate(-50%, -50%);
-				background: #fff;
-			}
-			.img_wrap{
-				width: 200px; height: auto;
-				position: absolute;
-			}
-			.img_wrap>img{
-				width: 100%; height: auto;
-				position: absolute;
-			}
-			.wrap1{ left: 0; bottom: 0; }
-			.wrap1>img{ bottom: 0; }
-			.wrap2{ right: 0; top: 0; }
-			.wrap2>img{
-				top: -20px;
-				transform-origin: right bottom;
-				transform: scaleX(-1) rotate(90deg);
-			}
-			.btn_wrap{
-				width: 100%;
-				position: absolute; left: 0; top: 50%;
-				display: flex; justify-content: center; gap: 100px;
-			}
-		</style>
+		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
 		<div class="bg">
 			<div class="wrapper">
-				<div class="img_wrap wrap1"><img src="img/flower1.png" alt=""></div>
-				<div class="img_wrap wrap2"><img src="img/flower1.png" alt=""></div>
+				<div class="title_wrap"><img src="img/title.png" alt=""></div>
+				<div class="bg_img_wrap wrap1"><img src="img/flower1.png" alt=""></div>
+				<div class="bg_img_wrap wrap2"><img src="img/flower1.png" alt=""></div>
 				<div class="btn_wrap">
-					<div class="play_btn"><img src="img/peach.png" alt=""></div>
-					<div class="howtoplay_btn"><img src="img/peach.png" alt=""></div>
+					<div class="play_btn">
+						<img src="img/peach.png" alt="">
+						<span>Play</span>
+					</div>
+					<div class="howtoplay_btn">
+						<img src="img/peach.png" alt="">
+						<span>How to<br>Play</span>
+					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			const playBtn=document.querySelector('.play_btn');
+			const howtoplayBtn=document.querySelector('.howtoplay_btn');
+			playBtn.addEventListener('click',()=>{
+				window.location.href='play.html';
+			});
+		</script>
 	</body>
 </html>
