@@ -24,12 +24,19 @@
 					</div>
 				</div>
 			</div>
+			<div class="howtoplay">
+				
+			</div>
 		</div>
 		<script>
 			const playBtn=document.querySelector('.play_btn');
 			const howtoplayBtn=document.querySelector('.howtoplay_btn');
+			const howtoplayWrap=document.querySelector('.howtoplay');
 			playBtn.addEventListener('click',()=>{
 				window.location.href='play.html';
+			});
+			howtoplayBtn.addEventListener('click',()=>{
+				howtoplayWrap.classList.add('active');
 			});
 		</script>
 	</body>

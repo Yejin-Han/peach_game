@@ -12,6 +12,8 @@ let selectedNum=new Array();
 let score=document.querySelector('.score');
 let scoreNum=0; let num=0;
 const resetBtn=document.querySelector('.reset');
+let sec=60;
+const currTimeBar=document.querySelector('.curr');
 for(let i=0; i<170; i++){
 	imgWraps.push(imgWrap.cloneNode(true));
 }
@@ -54,7 +56,7 @@ function moveFunc(e){
 	let nowX=e.offsetX;
 	let nowY=e.offsetY;
 	canvasDraw(nowX, nowY);
-	imgWraps.forEach((el, idx)=>{
+	imgWraps.forEach((el)=>{
 		if((el.offsetLeft+20>startX && (el.offsetLeft+el.clientWidth)-20<nowX) && ((el.offsetTop+el.clientHeight)-20<nowY && el.offsetTop+20>startY)){
 			if(el.firstChild!=null){
 				el.firstChild.style.backgroundImage="url('img/peachSelected.png')";
@@ -137,3 +139,17 @@ resetBtn.addEventListener('click',()=>{
 		el.innerHTML=Math.floor(Math.random()*9+1);
 	});
 });
+
+console.log(currTimeBar.clientHeight);
+function progressBar(){
+	/* console.lgcurrTimeBar.clientWidth */
+		/* barW=bar.width()-first_barW*(1/60);
+		bar.stop().animate({width:barW},1000,'linear'); */
+}
+function countDown(){
+
+}
+let timer=setInterval(countDown, 1000);
+if(sec<0){
+	clearInterval(timer);
+}

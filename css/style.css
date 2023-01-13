@@ -6,6 +6,12 @@
 	font-style: normal;
 	font-weight: normal;
 }
+@font-face {
+	font-family: 'MaplestoryOTFBold';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
 /* @import url('https://fonts.cdnfonts.com/css/fruit-days'); */
 html, body{ width: 100%; height: 100%; }
 body, div, p{ margin: 0; padding: 0; }
@@ -18,6 +24,8 @@ body{
 	background: url('../img/bg_frame.jpg');
 	position: relative;
 }
+
+/* index.html */
 .wrapper{
 	width: 800px; height: 600px;
 	padding: 30px; box-sizing: border-box;
@@ -49,18 +57,28 @@ body{
 	position: absolute; left: 0; bottom: 15%;
 	display: flex; justify-content: center; gap: 100px;
 }
-.btn_wrap>div{ position: relative; }
+.btn_wrap>div{ position: relative; cursor: pointer; }
 .btn_wrap>div>span{
 	width: 100%;
 	position: absolute; left: 2%; top: 50%;
 	transform: translateY(-40%);
 	text-align: center;
 	font-family: 'Fruit Days', sans-serif;
-	font-weight: bold; font-size: 26px;
-	color: #fff;
-	cursor: pointer;
+	font-size: 26px; color: #fff;
 }
 .btn_wrap>.play_btn>span{ font-size: 38px; }
+
+.howtoplay{
+	width: 800px; height: 600px;
+	padding: 30px; box-sizing: border-box;
+	position: absolute; left: 50%; top: 50%; z-index: 2;
+	transform: translate(-50%, -50%);
+	background: #fff;
+	visibility: hidden; opacity: 0; transition: opacity .4s;
+}
+.howtoplay.active{ visibility: visible; opacity: 1; }
+
+/* play.html */
 .overlay{
 	width: 800px; height: 600px;
 	padding: 30px; box-sizing: border-box;
@@ -72,11 +90,19 @@ body{
 .reset{
 	display: block;
 	width: 80px; height: 25px;
-	position: absolute; right: 100px; bottom: 10px;
-	border: 1px solid #80d4ff;
+	position: absolute; right: 120px; bottom: 10px;
+	background-image: linear-gradient(to right, #80d4ff, #3cbafa, #667eea, #764ba2);
+	background-size: 300% 100%;
+	box-shadow: 0 4px 15px 0 rgba(104, 202, 252, 0.75);
 	text-align: center; line-height: 25px;
-	font-size: 14px; color: #80d4ff;
+	font-family: 'Fruit Days', sans-serif;
+	font-size: 18px; color: #fff;
 	cursor: pointer;
+	transition: all .4s ease-in-out;
+}
+.reset:hover{
+	background-position: 100% 0;
+	transition: all .4s ease-in-out;
 }
 .peaches{
 	width: 95%; height: 100%;
@@ -91,22 +117,28 @@ body{
 }
 .img_wrap>span{
 	position: absolute; left: 50%; top: 50%; z-index: 10;
-	transform: translate(-30%, -50%);
+	transform: translate(-30%, -45%);
 	font-weight: bold; color: #fff;
+	font-family: 'MaplestoryOTFBold', sans-serif;
 }
 .result{
-	display: flex; flex-flow: column wrap; justify-content: center; align-items: center;
-	margin-right: -10px;
+	width: 18px; height: 100%;
+	display: flex; flex-flow: column wrap; justify-content: space-between; align-items: center;
+}
+.result>.score{
+	font-family: 'MaplestoryOTFBold', sans-serif;
+	font-size: 20px; color: #555;
+	margin-top: 10px;
 }
 .result>.timer{
-	width: 16px; height: 80%;
-	border: 1px solid #fff;
-	margin-top: 20px;
+	width: 16px; height: 85%;
+	border: 1px solid #fddde6; background: #fff;
 	position: relative;
+	margin-bottom: 10px;
 }
 .result>.timer>.curr{
 	display: block;
-	width: 100%; height: 80%;
+	width: 100%; height: 100%;
 	background: #fddde6;
 	position: absolute; left: 0; bottom: 0;
 }
