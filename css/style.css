@@ -26,6 +26,14 @@ body{
 }
 
 /* index.html */
+@keyframes hoverAni{
+	0%{ transform: rotate(0deg); }
+	20%{ transform: rotate(-20deg); }
+	40%{ transform: rotate(20deg); }
+	60%{ transform: rotate(-10deg); }
+	80%{ transform: rotate(10deg); }
+	100%{ transform: rotate(0deg); }
+}
 .wrapper{
 	width: 800px; height: 600px;
 	padding: 30px; box-sizing: border-box;
@@ -67,7 +75,12 @@ body{
 	font-size: 26px; color: #fff;
 }
 .btn_wrap>.play_btn>span{ font-size: 38px; }
-
+.play_btn, .howtoplay_btn{
+	transform: rotate(0deg);
+}
+.play_btn:hover, .howtoplay_btn:hover{
+	animation: hoverAni .4s ease-out 0s 1 alternate both;
+}
 .howtoplay{
 	width: 800px; height: 600px;
 	padding: 30px; box-sizing: border-box;
@@ -132,17 +145,42 @@ body{
 }
 .result>.timer{
 	width: 16px; height: 85%;
-	border: 1px solid #fddde6; background: #fff;
+	border: 1px solid #f7bed1; background: #fff;
 	position: relative;
 	margin-bottom: 10px;
 }
 .result>.timer>.curr{
 	display: block;
 	width: 100%; height: 100%;
-	background: #fddde6;
+	background: #f7bed1;
 	position: absolute; left: 0; bottom: 0;
+	transition: height 1s linear;
 }
 canvas{
 	position: absolute; left: 50%; top: 50%; z-index: 10;
 	transform: translate(-50%, -50%);
 }
+.blur{
+	width: 800px; height: 600px;
+	padding: 30px; box-sizing: border-box;
+	position: absolute; left: 50%; top: 50%; z-index: 1;
+	transform: translate(-50%, -50%);
+	backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+	visibility: hidden; opacity: 0; transition: opacity .2s;
+	display: flex; flex-flow: column wrap; justify-content: center; align-items: center;
+}
+.score_wrap{
+	position: relative;
+	margin-bottom: 80px;
+}
+.score_num_wrap{
+	position: absolute; left: 50%; top: 50%; z-index: 15;
+	transform: translate(-45%, -40%);
+	text-align: center;
+	font-family: 'MaplestoryOTFBold', sans-serif;
+	font-size: 30px; color: #fff;
+}
+.final_score_num{ font-size: 50px; }
+.best_score{ text-align: center; }
+.blur.active{ visibility: visible; opacity: 1; }

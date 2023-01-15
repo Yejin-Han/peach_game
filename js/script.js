@@ -12,8 +12,14 @@ let selectedNum=new Array();
 let score=document.querySelector('.score');
 let scoreNum=0; let num=0;
 const resetBtn=document.querySelector('.reset');
-let sec=60;
+let sec=5;
 const currTimeBar=document.querySelector('.curr');
+const barH=currTimeBar.clientHeight;
+let currBarH=barH;
+const blur=document.querySelector('.blur');
+const finalScoreNum=document.querySelector('.final_score_num');
+const bestScoreNum=document.querySelector('.best_score>.new');
+
 for(let i=0; i<170; i++){
 	imgWraps.push(imgWrap.cloneNode(true));
 }
@@ -140,16 +146,26 @@ resetBtn.addEventListener('click',()=>{
 	});
 });
 
-console.log(currTimeBar.clientHeight);
 function progressBar(){
-	/* console.lgcurrTimeBar.clientWidth */
-		/* barW=bar.width()-first_barW*(1/60);
-		bar.stop().animate({width:barW},1000,'linear'); */
+	currBarH-=barH*(1/5);
+	currTimeBar.style.height=`${currBarH/barH*100}%`;	
+	setTimeout(progressBar, 1000);
 }
 function countDown(){
-
+	console.log(sec);
+	sec--;
+	if(sec<=0){
+		clearInterval(timer);
+		clearTimeout(progress);
+		blur.classList.add('active');
+		finalScoreNum.innerHTML=scoreNum;
+		if(scoreNum>bestScore){
+			localStorage.setItem('bestScore', scoreNum);
+		}
+	}
 }
 let timer=setInterval(countDown, 1000);
-if(sec<0){
-	clearInterval(timer);
-}
+let progress=setTimeout(progressBar, 0);
+
+let bestScore=localStorage.getItem('bestScore') || 0;
+bestScoreNum.innerHTML=bestScore;
