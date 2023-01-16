@@ -11,15 +11,20 @@ let selectedWraps=new Array();
 let selectedNum=new Array();
 let score=document.querySelector('.score');
 let scoreNum=0; let num=0;
+const mainBtn=document.querySelector('.main');
 const resetBtn=document.querySelector('.reset');
-let sec=5;
+let sec=60;
 const currTimeBar=document.querySelector('.curr');
 const barH=currTimeBar.clientHeight;
 let currBarH=barH;
 const blur=document.querySelector('.blur');
 const finalScoreNum=document.querySelector('.final_score_num');
 const bestScoreNum=document.querySelector('.best_score>.new');
+const replayBtn=document.querySelector('.replay');
+const backtomainBtn=document.querySelector('.back_to_main');
+const localClearBtn=document.querySelector('.local_clear');
 
+console.log(localStorage.getItem('bestScore'));
 for(let i=0; i<170; i++){
 	imgWraps.push(imgWrap.cloneNode(true));
 }
@@ -77,8 +82,8 @@ function moveFunc(e){
 			}
 		}
 	});
-	leftPo=nowX;
-	topPo=nowY;
+	leftPos=nowX;
+	topPos=nowY;
 }
 function upFunc(e){
 	endX=e.offsetX;
@@ -131,6 +136,9 @@ const sumCheck=(arr)=>{
 	score.innerHTML=scoreNum;
 }
 
+mainBtn.addEventListener('click',()=>{
+	window.location.href='index.html';
+});
 resetBtn.addEventListener('click',()=>{
 	imgWraps.forEach(el=>{
 		if(el.firstChild==null){
@@ -147,7 +155,7 @@ resetBtn.addEventListener('click',()=>{
 });
 
 function progressBar(){
-	currBarH-=barH*(1/5);
+	currBarH-=barH*(1/60);
 	currTimeBar.style.height=`${currBarH/barH*100}%`;	
 	setTimeout(progressBar, 1000);
 }
@@ -159,13 +167,23 @@ function countDown(){
 		clearTimeout(progress);
 		blur.classList.add('active');
 		finalScoreNum.innerHTML=scoreNum;
+		console.log(localStorage.getItem('bestScore')!=null);
+		if(localStorage.getItem('bestScore')!=null){
+			bestScoreNum.innerHTML=localStorage.getItem('bestScore');
+		} else{
+			bestScoreNum.innerHTML=scoreNum;
+			localStorage.setItem('bestScore', scoreNum);
+		}
+		let bestScore=Number(bestScoreNum.innerHTML);
 		if(scoreNum>bestScore){
 			localStorage.setItem('bestScore', scoreNum);
+			bestScoreNum.innerHTML=scoreNum;
 		}
 	}
 }
 let timer=setInterval(countDown, 1000);
 let progress=setTimeout(progressBar, 0);
 
-let bestScore=localStorage.getItem('bestScore') || 0;
-bestScoreNum.innerHTML=bestScore;
+replayBtn.addEventListener('click',()=>{ window.location.reload(); });
+backtomainBtn.addEventListener('click',()=>{ window.location.href='index.html'; });
+localClearBtn.addEventListener('click',()=>{ localStorage.clear(); });

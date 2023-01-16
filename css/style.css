@@ -14,9 +14,20 @@
 }
 /* @import url('https://fonts.cdnfonts.com/css/fruit-days'); */
 html, body{ width: 100%; height: 100%; }
-body, div, p{ margin: 0; padding: 0; }
+body, div, p, h2, button{ margin: 0; padding: 0; }
+a{ text-decoration: none; }
 body{
 	display: flex; justify-content: center; align-items: center;
+}
+img{
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-use-select: none;
+	user-select: none;
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	-o-user-drag: none;
+	user-drag: none;
 }
 .bg{
 	width: 900px; height: 700px;
@@ -33,6 +44,10 @@ body{
 	60%{ transform: rotate(-10deg); }
 	80%{ transform: rotate(10deg); }
 	100%{ transform: rotate(0deg); }
+}
+@keyframes fadeIn{
+	0%{ opacity: 0; }
+	100%{ opacity: 1; }
 }
 .wrapper{
 	width: 800px; height: 600px;
@@ -66,7 +81,7 @@ body{
 	display: flex; justify-content: center; gap: 100px;
 }
 .btn_wrap>div{ position: relative; cursor: pointer; }
-.btn_wrap>div>span{
+.btn_wrap>div>span, .howtoplay>.start_btn>span{
 	width: 100%;
 	position: absolute; left: 2%; top: 50%;
 	transform: translateY(-40%);
@@ -75,10 +90,8 @@ body{
 	font-size: 26px; color: #fff;
 }
 .btn_wrap>.play_btn>span{ font-size: 38px; }
-.play_btn, .howtoplay_btn{
-	transform: rotate(0deg);
-}
-.play_btn:hover, .howtoplay_btn:hover{
+.play_btn, .howtoplay_btn{ transform: rotate(0deg); }
+.play_btn:hover, .howtoplay_btn:hover, .howtoplay>.start_btn:hover{
 	animation: hoverAni .4s ease-out 0s 1 alternate both;
 }
 .howtoplay{
@@ -88,8 +101,38 @@ body{
 	transform: translate(-50%, -50%);
 	background: #fff;
 	visibility: hidden; opacity: 0; transition: opacity .4s;
+	position: relative;
 }
-.howtoplay.active{ visibility: visible; opacity: 1; }
+.howtoplay>h2{
+	font-family: 'Fruit Days', sans-serif;
+	font-size: 30px; color: #454545;
+	margin-bottom: 20px;
+}
+.howtoplay>.close_btn{
+	width: 32px; height: 32px;
+	position: absolute; right: 30px; top: 30px;
+	background: transparent; border: none;
+	cursor: pointer;
+}
+.howtoplay>.close_btn>span{
+	position: absolute; left: 50%; top: 50%;
+	width: 3px; height: 100%;
+	background: #555;
+}
+.howtoplay>.close_btn>span:nth-of-type(1){
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+.howtoplay>.close_btn>span:nth-of-type(2){
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+.howtoplay>.start_btn{
+	width: 90px; height: 90px;
+	position: absolute; right: 20px; bottom: 20px;
+	background: url('../img/peach.png') no-repeat;
+	background-size: cover;
+}
+.howtoplay>.start_btn>span{ font-size: 20px; }
+.howtoplay.active{ visibility: visible; opacity: 1; transition: opacity .4s; }
 
 /* play.html */
 .overlay{
@@ -100,10 +143,10 @@ body{
 	background: url('../img/bg_play.gif');
 	display: flex; justify-content: space-between;
 }
-.reset{
+.main, .reset{
 	display: block;
 	width: 80px; height: 25px;
-	position: absolute; right: 120px; bottom: 10px;
+	position: absolute; bottom: 15px;
 	background-image: linear-gradient(to right, #80d4ff, #3cbafa, #667eea, #764ba2);
 	background-size: 300% 100%;
 	box-shadow: 0 4px 15px 0 rgba(104, 202, 252, 0.75);
@@ -113,7 +156,9 @@ body{
 	cursor: pointer;
 	transition: all .4s ease-in-out;
 }
-.reset:hover{
+.main{ right: 220px; }
+.reset{ right: 120px; }
+.main:hover, .reset:hover{
 	background-position: 100% 0;
 	transition: all .4s ease-in-out;
 }
@@ -163,24 +208,84 @@ canvas{
 .blur{
 	width: 800px; height: 600px;
 	padding: 30px; box-sizing: border-box;
-	position: absolute; left: 50%; top: 50%; z-index: 1;
+	position: absolute; left: 50%; top: 50%; z-index: 20;
 	transform: translate(-50%, -50%);
 	backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-	visibility: hidden; opacity: 0; transition: opacity .2s;
+	visibility: hidden;
 	display: flex; flex-flow: column wrap; justify-content: center; align-items: center;
+	font-family: 'MaplestoryOTFBold', sans-serif; color: #fff;
 }
 .score_wrap{
 	position: relative;
-	margin-bottom: 80px;
+	opacity: 0; transform: translateY(-50px);
+	transition: all .8s;
 }
 .score_num_wrap{
-	position: absolute; left: 50%; top: 50%; z-index: 15;
+	position: absolute; left: 50%; top: 50%;
 	transform: translate(-45%, -40%);
 	text-align: center;
-	font-family: 'MaplestoryOTFBold', sans-serif;
-	font-size: 30px; color: #fff;
+	font-size: 30px;
 }
 .final_score_num{ font-size: 50px; }
-.best_score{ text-align: center; }
-.blur.active{ visibility: visible; opacity: 1; }
+.best_score{
+	text-align: center; color: #555;
+	opacity: 0;
+}
+.btns{
+	margin-top: 40px;
+	opacity: 0; transform: translateY(50px);
+	transition: all 0.8s;
+}
+.btns>div{
+	width: 200px; height: 40px;
+	text-align: center; line-height: 40px;
+	background: #ad9beb;
+	transform: rotate(0deg);
+	cursor: pointer;
+}
+.btns>div::before, .btns>div::after{
+	display: block;
+	content: '';
+	position: absolute;
+	width: calc(0% - 6px); height: calc(0% - 6px);
+	border: 2px solid transparent;
+	transition: all 0.2s ease;
+}
+.btns>div::after{ bottom: 0; right: 0; }
+.btns>div::before{ top: 0; left: 0; }
+.btns>div:hover::after, .btns>div:hover::before{
+	width: calc(100% - 4px); height: calc(100% - 4px);
+}
+.btns>div:hover::after{
+	border-top-color: transparent;
+	border-left-color: transparent;
+	border-bottom-color: #fff;
+	border-right-color: #fff;
+}
+.btns>div:hover::before{
+	border-top-color: #fff;
+	border-left-color: #fff;
+	border-bottom-color: transparent;
+	border-right-color: transparent;
+}
+.replay{ margin-bottom: 10px; }
+.local_clear{
+	display: block;
+	width: 120px; height: 20px;
+	position: absolute; right: 20px; bottom: 20px;
+	border: 1px solid #555;
+	font-family: 'MaplestoryOTFBold', sans-serif;
+	text-align: center; line-height: 20px;
+	font-size: 12px; color: #555;
+	transition: all .2s;
+	cursor: pointer;
+}
+.local_clear:hover{
+	background: #555; color: #fff;
+}
+.blur.active{ visibility: visible; }
+.blur.active .score_wrap, .blur.active .btns{
+	opacity: 1; transform: translateY(0px);
+}
+.blur.active .best_score{ animation: fadeIn 1s ease 0s 1 both; }

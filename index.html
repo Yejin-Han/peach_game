@@ -25,18 +25,28 @@
 				</div>
 			</div>
 			<div class="howtoplay">
-				
+				<h2>How to Play</h2>
+				<img src="img/howtoplay.jpg" alt="">
+				<button type="button" class="close_btn">
+					<span></span>
+					<span></span>
+				</button>
+				<a href="play.html" class="start_btn"><span>PLAY</span></a>
 			</div>
 		</div>
 		<script>
 			const playBtn=document.querySelector('.play_btn');
 			const howtoplayBtn=document.querySelector('.howtoplay_btn');
 			const howtoplayWrap=document.querySelector('.howtoplay');
+			const closeBtn=document.querySelector('.close_btn');
 			playBtn.addEventListener('click',()=>{
 				window.location.href='play.html';
 			});
 			howtoplayBtn.addEventListener('click',()=>{
 				howtoplayWrap.classList.add('active');
+			});
+			closeBtn.addEventListener('click',()=>{
+				howtoplayWrap.classList.remove('active');
 			});
 		</script>
 	</body>
