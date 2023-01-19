@@ -24,7 +24,6 @@ const replayBtn=document.querySelector('.replay');
 const backtomainBtn=document.querySelector('.back_to_main');
 const localClearBtn=document.querySelector('.local_clear');
 
-console.log(localStorage.getItem('bestScore'));
 for(let i=0; i<170; i++){
 	imgWraps.push(imgWrap.cloneNode(true));
 }
@@ -128,8 +127,31 @@ const sumCheck=(arr)=>{
 	let sum=selectedNum.reduce((a,b) => (a+b));
 	if(sum==10){
 		selectedWraps.forEach(el=>{
-			el.firstChild.remove();
-			el.firstChild.remove();
+			let xpo=parseInt(getComputedStyle(el).left);
+			let ypo=parseInt(getComputedStyle(el).top);
+			let incX=Math.random()*6+4; //4,5,6,7,8,9
+			let incY=-(Math.random()*5+7); //-7,-6,-5,-4,-3
+			let direct=Math.random();
+			let g=2; //중력
+			if(direct<0.5){
+				incX=incX;
+			}else{
+				incX=-incX;
+			}
+			let moveTimer;
+			const curveMoving=()=>{
+				ypo+=incY=incY+g;
+				xpo+=incX;
+				el.style.left=xpo+'px';
+				el.style.top=ypo+'px';
+				moveTimer=setTimeout(curveMoving,20);
+				if(ypo>document.querySelector('.bg').offsetTop+document.querySelector('.bg').clientHeight){
+					clearTimeout(moveTimer);
+					el.firstChild.remove();
+					el.firstChild.remove();
+				}
+			}
+			curveMoving();
 		});
 		scoreNum+=num;
 	}
@@ -146,6 +168,8 @@ resetBtn.addEventListener('click',()=>{
 			const span2=document.createElement('span');
 			el.append(p2);
 			el.append(span2);
+			el.style.left=0+'px';
+			el.style.top=0+'px';
 		}
 	});
 	spans=document.querySelectorAll('.img_wrap>span');

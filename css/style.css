@@ -142,6 +142,7 @@ img{
 	transform: translate(-50%, -50%);
 	background: url('../img/bg_play.gif');
 	display: flex; justify-content: space-between;
+	overflow: hidden;
 }
 .main, .reset{
 	display: block;
